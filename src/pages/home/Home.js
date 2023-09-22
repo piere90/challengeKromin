@@ -17,6 +17,7 @@ import {
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import Task from "../../components/Task";
 import HomeTableHeader from "./home-table-heading";
+import {TASK_MODEL} from "../../models";
 import TodoInputBar from "./todo-input-bar/TodoInputBar";
 import FilterBar from "./filter-bar/FilterBar";
 import {useWindowSize} from "../../hooks/useWindowSize";
