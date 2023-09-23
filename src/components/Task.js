@@ -8,6 +8,9 @@ import {TASK_MODEL} from "../models";
 import dayjs from "dayjs";
 import {effortRenderer} from "../utilities/helpers";
 import {useWindowSize} from "../hooks/useWindowSize";
+import useAlert from "../hooks/useAlert";
+import useComplete from "../hooks/useComplete";
+import Toast from './Toast';
 
 const useStyles = createUseStyles(theme => ({
     task: {
@@ -124,11 +127,17 @@ const Task = forwardRef((
     const { width } = useWindowSize();
     const isMobile = width < 768;
     const classes = useStyles();
+    const showComplete = useComplete();
+    const { isAlertOpen, alertData, closeAlert } = useAlert();
 
     return <div className={cx(classes.task, isLast && classes.last)} ref={ref} {...draggableProps}>
         {isMobile ? <>
                 <span className={classes.check}>
-                    <Checkbox className={classes.doneCheck} onChange={() => onUpdateCb({...task},{...task, [TASK_MODEL.completed]: !task[TASK_MODEL.completed]})}/>
+                    <Checkbox className={classes.doneCheck} onChange={() => {
+                                onUpdateCb({...task},{...task, [TASK_MODEL.completed]: !task[TASK_MODEL.completed]});
+                                showComplete('Task completed');
+                            }}
+                    />
                 </span>
                 <span className={classes.text} onClick={onEditCb}>
                     <p>
@@ -150,8 +159,12 @@ const Task = forwardRef((
                 <span className={classes.check}>
                     <Checkbox className={classes.doneCheck}
                               checked={task?.[TASK_MODEL.completed]}
-                              onChange={() => onUpdateCb({...task},{...task, [TASK_MODEL.completed]: !task[TASK_MODEL.completed]})}
+                              onChange={() => {
+                                onUpdateCb({...task},{...task, [TASK_MODEL.completed]: !task[TASK_MODEL.completed]});
+                                showComplete('Task completed');
+                            }}
                     />
+                    <Toast open={isAlertOpen} title={alertData.message} type={alertData.type} onClose={closeAlert} />   
                 </span>
                 <span className={classes.text}> {task?.[TASK_MODEL.description]} </span>
                 <span className={classes.date}> {dayjs(task?.[TASK_MODEL.date]).format("DD-MM-YYYY")} </span>

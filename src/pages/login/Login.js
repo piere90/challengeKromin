@@ -13,6 +13,8 @@ import {handleApiError} from "../../utilities/helpers";
 import useError from "../../hooks/useError";
 import Logo from "../../components/Logo";
 import useUser from "../../hooks/useUser";
+import useAlert from "../../hooks/useAlert";
+import Toast from '../../components/Toast';
 
 const useStyles = createUseStyles(theme => ({
     formTitle: {
@@ -54,6 +56,7 @@ const Login = () => {
     const showError = useError();
     const {createUser} = useUser();
     const [showPassword, setShowPassword] = useState(false);
+    const { isAlertOpen, alertData, closeAlert } = useAlert();
 
     const methods = useForm({
         shouldUnregister: false,
@@ -78,7 +81,7 @@ const Login = () => {
         }catch (error){
             handleApiError({
                 error,
-                handleGeneralError: showError,
+                handleGeneralError: showError('Wrong email or password'),
                 handleFormError: setError
             })
         }
@@ -88,6 +91,7 @@ const Login = () => {
 
     return <FormProvider {...methods}>
         <form onSubmit={handleSubmit(submitHandler)} className={classes.formWrapper}>
+        <Toast open={isAlertOpen} title={alertData.title} type={alertData.severity} onClose={closeAlert} />
             <div className={classes.fieldWrapper}>
                 <div className={classes.formTitle}>
                     <Logo/>

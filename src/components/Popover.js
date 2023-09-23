@@ -37,7 +37,7 @@ const useStyles = createUseStyles(theme => ({
     },
     body: ({bodyHeight}) => ({
         maxHeight: bodyHeight,
-        overflow: "auto"
+        //overflow: "auto"
     }),
     footer: {
         padding: [20, 32],
@@ -105,7 +105,7 @@ const Popover = ({onClose, title, children, buttonPrimary, buttonSecondary, isLo
                                 className={classes.secondaryButton}
                                 width="auto"
                                 onClick={buttonSecondary.onClick}
-                                fullWidth={!buttonPrimary}
+                                //fullWidth={!buttonPrimary}
                                 disabled={buttonSecondary.disabled}
                             >
                                 {buttonSecondary.text}
@@ -115,7 +115,7 @@ const Popover = ({onClose, title, children, buttonPrimary, buttonSecondary, isLo
                             <Button
                                 width="auto"
                                 onClick={buttonPrimary.onClick}
-                                fullWidth={!buttonSecondary}
+                                //fullWidth={!buttonSecondary}
                                 disabled={buttonPrimary.disabled}
                             >
                                 {buttonPrimary.text}
