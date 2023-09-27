@@ -1,8 +1,8 @@
 import {createUseStyles} from "react-jss";
 import SearchBar from "../../../components/SearchBar";
 import FilterButton from "../../../components/FilterButton";
-import {useNavigate} from "react-router-dom";
-import {ROUTE_COMPLETED} from "../../../utilities/constants";
+import { useNavigate, useLocation } from "react-router-dom";
+import { ROUTE_HOME, ROUTE_COMPLETED } from "../../../utilities/constants";
 import ControlledSelect from "../../../components/ControlledSelect";
 import DatePickerInput from "../../../components/DatePickerInput";
 import {TASK_PRIORITIES} from "../../../models/task";
@@ -70,7 +70,12 @@ const useStyles = createUseStyles(theme => ({
 const FilterBar = ({onPriorityHandler = Function.prototype, onSearchHandler = Function.prototype, dateFilter, onDateChangeHandler = Function.prototype}) => {
 
     const navigate = useNavigate();
+    const location = useLocation(); // Uso useLocation per ottenere la rotta corrente
     const classes = useStyles();
+
+    // Controlliamo se la rotta corrente è "/"
+    const isCompletedRoute = location.pathname === ROUTE_HOME;
+    const isHomeRoute      = location.pathname === ROUTE_COMPLETED;
 
     return <div className={classes.filterBar}>
         <div className={classes.actions}>
@@ -87,7 +92,18 @@ const FilterBar = ({onPriorityHandler = Function.prototype, onSearchHandler = Fu
                 isClearable
                 options={TASK_PRIORITIES}
             />
-            <FilterButton onClickCallback={() => navigate(ROUTE_COMPLETED) }>Completed</FilterButton>
+            {/* Renderizzo il FilterButton solo se siamo nella rotta / */}
+            {isCompletedRoute && (
+            <FilterButton onClickCallback={() => navigate(ROUTE_COMPLETED)}>
+                Completed
+            </FilterButton>
+            )}
+            {/* Renderizzo il FilterButton solo se siamo nella rotta / */}
+            {isHomeRoute && (
+            <FilterButton onClickCallback={() => navigate(ROUTE_HOME)}>
+                Home
+            </FilterButton>
+            )}
         </div>
         <div className={classes.search}>
             <SearchBar className={classes.searchBar} onSearchCallback={onSearchHandler}/>
