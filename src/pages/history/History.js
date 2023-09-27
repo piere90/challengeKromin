@@ -15,7 +15,9 @@ import { useEffect, useMemo, useState } from "react";
 import Task from "../../components/Task";
 import FilterBar from "../home/filter-bar/FilterBar";
 import HomeTableHeader from "../home/home-table-heading";
+import {useWindowSize} from "../../hooks/useWindowSize";
 import { TASK_MODEL } from "../../models";
+import EditTaskModal from "../home/EditTaskModal";
 import Spinner, {SPINNER_POSITIONS} from "../../components/Spinner";
 
 const useStyles = createUseStyles(theme => ({
@@ -47,6 +49,11 @@ const Completed = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
     const [hasMoreDataToLoad, setHasMoreDataToLoad] = useState(true);
+    const [openedTask, setOpenedTask] = useState(null);
+    const [showEditModal, setShowEditModal] = useState(false);
+
+    const {width} = useWindowSize()
+    const isMobile = width < 600
 
     //for filter
     const [searchInput, setSearchInput] = useState('');
@@ -245,6 +252,10 @@ const Completed = () => {
                                     index={index}
                                     onDeleteCb={onDeleteTask}
                                     onUpdateCb={onEditTask}
+                                    onEditCb={() =>{
+                                        setOpenedTask(task)
+                                        setShowEditModal(true)
+                                    }}
                                 />
                                 ))}
                             </div>
@@ -253,6 +264,14 @@ const Completed = () => {
                 </Row>
                 {isLoading && <Spinner position={SPINNER_POSITIONS.ABSOLUTE} overlay/>}
             </Container>
+            {showEditModal && !isMobile && (
+                <EditTaskModal
+                    onClose={() => {
+                        setShowEditModal(false)
+                    }}
+                    task={openedTask}
+                />
+            )}
         </div>
     );
 }
