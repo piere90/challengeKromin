@@ -6,6 +6,10 @@ const TasksAPI = {
         const url = '/todos'
         return axios.get(url)
     },
+    getTasksCompleted: (page) => {
+        const url = `/todos/completed?page=${page}`
+        return axios.get(url)
+    },
     addTask:(data) => {
         const url = '/todos'
         return axios.post(url,data)
