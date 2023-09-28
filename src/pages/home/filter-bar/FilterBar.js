@@ -98,7 +98,7 @@ const FilterBar = ({onPriorityHandler = Function.prototype, onSearchHandler = Fu
                 Completed
             </FilterButton>
             )}
-            {/* Renderizzo il FilterButton solo se siamo nella rotta / */}
+            {/* Renderizzo il FilterButton solo se siamo nella rotta /completed */}
             {isHomeRoute && (
             <FilterButton onClickCallback={() => navigate(ROUTE_HOME)}>
                 Home

@@ -3,6 +3,7 @@ import { createUseStyles } from 'react-jss'
 import * as PropTypes from 'prop-types'
 import cx from 'classnames'
 import { AlertIcon, SuccessIcon } from '../theme/icons'
+import "../assets/Input.css"
 
 const useStyles = createUseStyles((theme) => ({
     root: {
@@ -50,16 +51,6 @@ const useStyles = createUseStyles((theme) => ({
         alignItems: 'center',
         justifyItems: 'center',
         cursor: 'pointer',
-    },
-    statusIcons: {
-        position: 'absolute',
-        top: '50%',
-        transform: 'translateY(-50%)',
-        display: 'flex',
-        gap: theme.spacing / 2,
-        zIndex: 1,
-        left: 'unset',
-        right: theme.spacing * 2,
     },
     statusIconWarning: {
         extend: 'icon',
@@ -112,7 +103,7 @@ const Input = forwardRef(function Input(
     return (
         <div className={cx(classes.root, rootClassName)} {...rest}>
             {!!label && <label htmlFor={name}>{label}</label>}
-            <div className={classes.inputWrapper}>
+            <div className="inputWrapper-d0-0-2-43">
                 <span className={classes.icons}>
                     {icon && (
                         <span
@@ -132,7 +123,7 @@ const Input = forwardRef(function Input(
                     ref={ref}
                     {...inputProps}
                 />
-                <span className={classes.statusIcons}>
+                <span className="icons-0-2-38">
                     {!!errors ? (
                         <span className={classes.statusIconWarning}>
                             <AlertIcon />

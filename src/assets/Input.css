@@ -1,0 +1,16 @@
+.icons-0-2-38 {
+    gap: 4px;
+    top: 50%;
+    left: 16px;
+    display: flex;
+    z-index: 1; 
+    position: absolute;
+    transform: translateY(-50%);
+}
+
+.inputWrapper-d0-0-2-43 input {
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px;
+    padding-left: 48px;
+    padding-right: 48px;
+}
