@@ -68,8 +68,6 @@ const Completed = () => {
         try {
             const response = await TasksAPI.getTasksCompleted(page);
             const { data } = response;
-            console.log(data.data);
-            //return true;
 
             //raggruppo i tasks
             const groupedTasks = groupByDate(data.data);
@@ -79,10 +77,8 @@ const Completed = () => {
             
                 Object.keys(groupedTasks).forEach((date) => {
                 if (updatedTasks[date]) {
-                    // If there's an existing list for this date, concatenate the new tasks
                     updatedTasks[date] = [...updatedTasks[date], ...groupedTasks[date]];
                 } else {
-                    // Otherwise, create a new list
                     updatedTasks[date] = groupedTasks[date];
                 }
                 });
